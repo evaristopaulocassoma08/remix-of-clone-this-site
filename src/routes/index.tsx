@@ -185,6 +185,7 @@ function NavDropdown({ label, href, groups, flat = false }: { label: string; hre
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobilePart, setMobilePart] = useState(false);
   const [mobileSol, setMobileSol] = useState(false);
   const [mobileAud, setMobileAud] = useState(false);
   const [cookies, setCookies] = useState(true);
