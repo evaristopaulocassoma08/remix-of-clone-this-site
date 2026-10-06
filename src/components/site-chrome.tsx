@@ -72,12 +72,11 @@ function NavDropdown({ label, href, groups, flat = false }: { label: string; hre
   );
 }
 
-function MobileGroup({ menu, open, toggle, close }: { menu: typeof solucoesMenu; open: boolean; toggle: () => void; close: () => void }) {
-  const [first] = menu;
+function MobileGroup({ label, menu, open, toggle, close }: { label: string; menu: typeof solucoesMenu; open: boolean; toggle: () => void; close: () => void }) {
   return (
     <div>
       <button className="mobile-trigger" aria-expanded={open} onClick={toggle}>
-        {first?.group} <ChevronDown size={14} className={open ? "chevron open" : "chevron"} />
+        {label} <ChevronDown size={14} className={open ? "chevron open" : "chevron"} />
       </button>
       {open && (
         <div className="mobile-sol">
@@ -124,9 +123,9 @@ export function SiteHeader() {
       </nav>
       {menuOpen && (
         <div className="mobile-nav">
-          <MobileGroup menu={participantesMenu} open={mobilePart} toggle={() => setMobilePart(!mobilePart)} close={close} />
-          <MobileGroup menu={solucoesMenu} open={mobileSol} toggle={() => setMobileSol(!mobileSol)} close={close} />
-          <MobileGroup menu={paraQuemMenu} open={mobileAud} toggle={() => setMobileAud(!mobileAud)} close={close} />
+          <MobileGroup label="Participantes" menu={participantesMenu} open={mobilePart} toggle={() => setMobilePart(!mobilePart)} close={close} />
+          <MobileGroup label="Soluções" menu={solucoesMenu} open={mobileSol} toggle={() => setMobileSol(!mobileSol)} close={close} />
+          <MobileGroup label="Para quem é" menu={paraQuemMenu} open={mobileAud} toggle={() => setMobileAud(!mobileAud)} close={close} />
           <NavHref href="/#precos" onClick={close}>Preços</NavHref>
           <NavHref href="/#conteudos" onClick={close}>Conteúdos</NavHref>
           <BrandButton href="/#comece">Criar evento grátis</BrandButton>
@@ -177,5 +176,3 @@ export function CookieBox() {
     </aside>
   );
 }
-
-export { ArrowRight };
