@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "3e044c8a-0617-480e-89d9-b4dc4b9ec725",
-  "project_id": "25de841f-6cde-4f04-b6b4-5ef30caa4789",
-  "url": "/__l5e/assets-v1/3e044c8a-0617-480e-89d9-b4dc4b9ec725/2-venda-e-organize.png",
-  "r2_key": "a/v1/25de841f-6cde-4f04-b6b4-5ef30caa4789/3e044c8a-0617-480e-89d9-b4dc4b9ec725/2-venda-e-organize.png",
-  "original_filename": "2-venda-e-organize.png",
-  "size": 161347,
   "content_type": "image/png",
-  "created_at": "2026-10-06T15:12:37Z"
+  "created_at": "2026-10-06T15:12:37Z",
+  "original_filename": "2-venda-e-organize.png",
+  "project_id": "203f827b-cca1-4f09-86e5-5714491199ac",
+  "r2_key": "a/v1/203f827b-cca1-4f09-86e5-5714491199ac/3e044c8a-0617-480e-89d9-b4dc4b9ec725/2-venda-e-organize.png",
+  "size": 161347,
+  "url": "/__l5e/assets-v1/3e044c8a-0617-480e-89d9-b4dc4b9ec725/2-venda-e-organize.png",
+  "version": 1
 }

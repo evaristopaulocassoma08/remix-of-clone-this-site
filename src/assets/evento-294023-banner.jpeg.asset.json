@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "3d29fb70-087d-4040-b5d1-6a32a75b6109",
-  "project_id": "25de841f-6cde-4f04-b6b4-5ef30caa4789",
-  "url": "/__l5e/assets-v1/3d29fb70-087d-4040-b5d1-6a32a75b6109/evento-294023-banner.jpeg",
-  "r2_key": "a/v1/25de841f-6cde-4f04-b6b4-5ef30caa4789/3d29fb70-087d-4040-b5d1-6a32a75b6109/evento-294023-banner.jpeg",
-  "original_filename": "evento-294023-banner.jpeg",
-  "size": 8563,
   "content_type": "image/jpeg",
-  "created_at": "2026-10-06T15:12:52Z"
+  "created_at": "2026-10-06T15:12:52Z",
+  "original_filename": "evento-294023-banner.jpeg",
+  "project_id": "203f827b-cca1-4f09-86e5-5714491199ac",
+  "r2_key": "a/v1/203f827b-cca1-4f09-86e5-5714491199ac/3d29fb70-087d-4040-b5d1-6a32a75b6109/evento-294023-banner.jpeg",
+  "size": 8563,
+  "url": "/__l5e/assets-v1/3d29fb70-087d-4040-b5d1-6a32a75b6109/evento-294023-banner.jpeg",
+  "version": 1
 }
