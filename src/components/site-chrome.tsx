@@ -9,7 +9,8 @@ import logo from "@/assets/logo-escura.svg.asset.json";
 function NavHref({ href, className, children, onClick }: { href: string; className?: string; children: ReactNode; onClick?: () => void }) {
   if (href.startsWith("#")) return <a href={href} className={className} onClick={onClick}>{children}</a>;
   const [path, hash] = href.split("#");
-  return <Link to={path || "/"} hash={hash || undefined} className={className} onClick={onClick}>{children}</Link>;
+  if (hash) return <Link to={path || "/"} hash={hash} className={className} onClick={onClick}>{children}</Link>;
+  return <Link to={path || "/"} className={className} onClick={onClick}>{children}</Link>;
 }
 
 export function BrandButton({ children, outline = false, href = "/#comece" }: { children: ReactNode; outline?: boolean; href?: string }) {
