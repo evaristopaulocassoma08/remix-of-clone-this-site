@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlataformaDeEventosRouteImport } from './routes/plataforma-de-eventos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlataformaDeEventosRoute = PlataformaDeEventosRouteImport.update({
+  id: '/plataforma-de-eventos',
+  path: '/plataforma-de-eventos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/plataforma-de-eventos': typeof PlataformaDeEventosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/plataforma-de-eventos': typeof PlataformaDeEventosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/plataforma-de-eventos': typeof PlataformaDeEventosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/plataforma-de-eventos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/plataforma-de-eventos'
+  id: '__root__' | '/' | '/plataforma-de-eventos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PlataformaDeEventosRoute: typeof PlataformaDeEventosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plataforma-de-eventos': {
+      id: '/plataforma-de-eventos'
+      path: '/plataforma-de-eventos'
+      fullPath: '/plataforma-de-eventos'
+      preLoaderRoute: typeof PlataformaDeEventosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PlataformaDeEventosRoute: PlataformaDeEventosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
