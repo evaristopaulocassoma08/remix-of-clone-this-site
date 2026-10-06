@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import logo from "@/assets/logo-escura.svg.asset.json";
 import hero from "@/assets/home-hero.png.asset.json";
@@ -56,6 +56,87 @@ const audience = [
 
 function BrandButton({ children, outline = false }: { children: React.ReactNode; outline?: boolean }) {
   return <a href="#comece" className={outline ? "btn btn-outline" : "btn btn-primary"}>{children}</a>;
+}
+
+const solucoesMenu = [
+  {
+    group: "Produtos",
+    items: [
+      ["Plataforma de eventos", "Operação completa num só lugar", "#solucoes"],
+      ["App do evento", "App com a cara do seu evento", "#solucoes"],
+      ["App multieventos", "Um app para vários eventos", "#solucoes"],
+      ["App de check-in", "Credenciamento pela equipe", "#solucoes"],
+      ["Doity Play", "Ambiente digital do evento online ou híbrido", "#solucoes"],
+      ["CAEX", "Portal do expositor", "#solucoes"],
+      ["Curadoria", "Programação, palestrantes e grade", "#solucoes"],
+    ] as [string, string, string][],
+  },
+  {
+    group: "Funcionalidades",
+    items: [
+      ["Site do evento", "Página com a cara da marca", "#solucoes"],
+      ["Inscrições e pagamentos", "Lotes, cupons e checkout", "#solucoes"],
+      ["Inscrições em atividades", "Por sessão ou workshop", "#solucoes"],
+      ["Credenciamento", "Entrada e controle de acesso", "#solucoes"],
+      ["Reconhecimento facial", "Entrada fluida e controle avançado", "#solucoes"],
+      ["Certificados", "Emissão e envio automático", "#solucoes"],
+      ["Trabalhos científicos", "Submissão até os anais", "#cientificos"],
+      ["Integrações", "CRM, analytics e API", "#todas"],
+    ] as [string, string, string][],
+  },
+  {
+    group: "Começar",
+    items: [
+      ["Quanto custa", "Grátis para criar · 10% nas inscrições pagas", "#precos"],
+      ["Criar em minutos", "Do cadastro à página no ar", "#comece"],
+      ["Falar com um especialista", "Orçamento e consultoria", "#comece"],
+    ] as [string, string, string][],
+  },
+];
+
+function NavDropdown({ groups }: { groups: typeof solucoesMenu }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("click", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+  return (
+    <div
+      className="nav-item"
+      ref={ref}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <a href="#solucoes" aria-expanded={open} onClick={() => setOpen(true)}>
+        Soluções <ChevronDown size={13} className={open ? "chevron open" : "chevron"} />
+      </a>
+      <div className={`mega-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+        {groups.map((g) => (
+          <div key={g.group}>
+            <p className="mega-group">{g.group}</p>
+            {g.items.map(([title, desc, href]) => (
+              <a key={title} href={href} className="mega-item" onClick={() => setOpen(false)}>
+                <strong>{title}</strong>
+                <span>{desc}</span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Index() {
