@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import logo from "@/assets/logo-escura.svg.asset.json";
 import hero from "@/assets/home-hero.png.asset.json";
@@ -58,8 +58,90 @@ function BrandButton({ children, outline = false }: { children: React.ReactNode;
   return <a href="#comece" className={outline ? "btn btn-outline" : "btn btn-primary"}>{children}</a>;
 }
 
+const solucoesMenu = [
+  {
+    group: "Produtos",
+    items: [
+      ["Plataforma de eventos", "Operação completa num só lugar", "#solucoes"],
+      ["App do evento", "App com a cara do seu evento", "#solucoes"],
+      ["App multieventos", "Um app para vários eventos", "#solucoes"],
+      ["App de check-in", "Credenciamento pela equipe", "#solucoes"],
+      ["Doity Play", "Ambiente digital do evento online ou híbrido", "#solucoes"],
+      ["CAEX", "Portal do expositor", "#solucoes"],
+      ["Curadoria", "Programação, palestrantes e grade", "#solucoes"],
+    ] as [string, string, string][],
+  },
+  {
+    group: "Funcionalidades",
+    items: [
+      ["Site do evento", "Página com a cara da marca", "#solucoes"],
+      ["Inscrições e pagamentos", "Lotes, cupons e checkout", "#solucoes"],
+      ["Inscrições em atividades", "Por sessão ou workshop", "#solucoes"],
+      ["Credenciamento", "Entrada e controle de acesso", "#solucoes"],
+      ["Reconhecimento facial", "Entrada fluida e controle avançado", "#solucoes"],
+      ["Certificados", "Emissão e envio automático", "#solucoes"],
+      ["Trabalhos científicos", "Submissão até os anais", "#cientificos"],
+      ["Integrações", "CRM, analytics e API", "#todas"],
+    ] as [string, string, string][],
+  },
+  {
+    group: "Começar",
+    items: [
+      ["Quanto custa", "Grátis para criar · 10% nas inscrições pagas", "#precos"],
+      ["Criar em minutos", "Do cadastro à página no ar", "#comece"],
+      ["Falar com um especialista", "Orçamento e consultoria", "#comece"],
+    ] as [string, string, string][],
+  },
+];
+
+function NavDropdown({ groups }: { groups: typeof solucoesMenu }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("click", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+  return (
+    <div
+      className="nav-item"
+      ref={ref}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <a href="#solucoes" aria-expanded={open} onClick={() => setOpen(true)}>
+        Soluções <ChevronDown size={13} className={open ? "chevron open" : "chevron"} />
+      </a>
+      <div className={`mega-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+        {groups.map((g) => (
+          <div key={g.group}>
+            <p className="mega-group">{g.group}</p>
+            {g.items.map(([title, desc, href]) => (
+              <a key={title} href={href} className="mega-item" onClick={() => setOpen(false)}>
+                <strong>{title}</strong>
+                <span>{desc}</span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileSol, setMobileSol] = useState(false);
   const [cookies, setCookies] = useState(true);
   return (
     <main>
@@ -67,12 +149,12 @@ function Index() {
         <nav className="nav-shell" aria-label="Navegação principal">
           <a href="#top" aria-label="Doity"><img className="brand" src={logo.url} alt="Doity" /></a>
           <div className="desktop-nav">
-            <a href="#eventos">Participantes <ChevronDown size={13}/></a><a href="#solucoes">Soluções <ChevronDown size={13}/></a><a href="#publicos">Para quem é <ChevronDown size={13}/></a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
+            <a href="#eventos">Participantes <ChevronDown size={13}/></a><NavDropdown groups={solucoesMenu}/><a href="#publicos">Para quem é <ChevronDown size={13}/></a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
           </div>
           <div className="nav-actions"><a className="login" href="#entrar">Entrar</a><BrandButton outline>Falar com especialista</BrandButton><BrandButton>Criar evento grátis</BrandButton></div>
           <button className="menu-button" aria-label="Abrir menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
         </nav>
-        {menuOpen && <div className="mobile-nav"><a href="#eventos">Participantes</a><a href="#solucoes">Soluções</a><a href="#publicos">Para quem é</a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a><BrandButton>Criar evento grátis</BrandButton></div>}
+        {menuOpen && <div className="mobile-nav"><a href="#eventos">Participantes</a><div><button className="mobile-trigger" aria-expanded={mobileSol} onClick={() => setMobileSol(!mobileSol)}>Soluções <ChevronDown size={14} className={mobileSol ? "chevron open" : "chevron"} /></button>{mobileSol && <div className="mobile-sol">{solucoesMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobileSol(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><a href="#publicos">Para quem é</a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a><BrandButton>Criar evento grátis</BrandButton></div>}
       </header>
 
       <section id="top" className="hero-section">
