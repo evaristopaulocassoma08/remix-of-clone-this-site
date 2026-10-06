@@ -17,6 +17,7 @@ button { font: inherit; }
 .brand { width: 73px; display: block; }
 .desktop-nav { display: flex; align-items: center; gap: 30px; font-size: 13px; flex: 1; }
 .desktop-nav a { display: flex; align-items: center; gap: 5px; }
+.nav-actions { display: flex; align-items: center; gap: 12px; font-size: 12px; }
 .nav-item { position: relative; display: flex; align-items: center; }
 .nav-item > a { cursor: pointer; }
 .chevron { transition: transform .2s; flex: none; }
