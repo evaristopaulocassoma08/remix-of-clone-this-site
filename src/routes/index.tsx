@@ -110,6 +110,18 @@ const paraQuemMenu: MenuGroup[] = [
   },
 ];
 
+const participantesMenu: MenuGroup[] = [
+  {
+    group: "Acessos do participante",
+    items: [
+      ["Encontrar eventos", "Busque eventos e faça sua inscrição", "#eventos"],
+      ["Área do participante", "Acesse seus serviços em um só lugar", "#eventos"],
+      ["Certificados e comprovantes", "Consulte documentos pelo e-mail da inscrição", "#eventos"],
+      ["Validar certificado", "Confirme a autenticidade de um certificado", "#eventos"],
+    ],
+  },
+];
+
 function NavDropdown({ label, href, groups, flat = false }: { label: string; href: string; groups: MenuGroup[]; flat?: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -173,6 +185,7 @@ function NavDropdown({ label, href, groups, flat = false }: { label: string; hre
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobilePart, setMobilePart] = useState(false);
   const [mobileSol, setMobileSol] = useState(false);
   const [mobileAud, setMobileAud] = useState(false);
   const [cookies, setCookies] = useState(true);
@@ -182,12 +195,12 @@ function Index() {
         <nav className="nav-shell" aria-label="Navegação principal">
           <a href="#top" aria-label="Doity"><img className="brand" src={logo.url} alt="Doity" /></a>
           <div className="desktop-nav">
-            <a href="#eventos">Participantes <ChevronDown size={13}/></a><NavDropdown label="Soluções" href="#solucoes" groups={solucoesMenu}/><NavDropdown label="Para quem é" href="#publicos" groups={paraQuemMenu} flat/><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
+            <NavDropdown label="Participantes" href="#eventos" groups={participantesMenu} flat/><NavDropdown label="Soluções" href="#solucoes" groups={solucoesMenu}/><NavDropdown label="Para quem é" href="#publicos" groups={paraQuemMenu} flat/><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
           </div>
           <div className="nav-actions"><a className="login" href="#entrar">Entrar</a><BrandButton outline>Falar com especialista</BrandButton><BrandButton>Criar evento grátis</BrandButton></div>
           <button className="menu-button" aria-label="Abrir menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
         </nav>
-        {menuOpen && <div className="mobile-nav"><a href="#eventos">Participantes</a><div><button className="mobile-trigger" aria-expanded={mobileSol} onClick={() => setMobileSol(!mobileSol)}>Soluções <ChevronDown size={14} className={mobileSol ? "chevron open" : "chevron"} /></button>{mobileSol && <div className="mobile-sol">{solucoesMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobileSol(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><div><button className="mobile-trigger" aria-expanded={mobileAud} onClick={() => setMobileAud(!mobileAud)}>Para quem é <ChevronDown size={14} className={mobileAud ? "chevron open" : "chevron"} /></button>{mobileAud && <div className="mobile-sol">{paraQuemMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobileAud(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a><BrandButton>Criar evento grátis</BrandButton></div>}
+        {menuOpen && <div className="mobile-nav"><div><button className="mobile-trigger" aria-expanded={mobilePart} onClick={() => setMobilePart(!mobilePart)}>Participantes <ChevronDown size={14} className={mobilePart ? "chevron open" : "chevron"} /></button>{mobilePart && <div className="mobile-sol">{participantesMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobilePart(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><div><button className="mobile-trigger" aria-expanded={mobileSol} onClick={() => setMobileSol(!mobileSol)}>Soluções <ChevronDown size={14} className={mobileSol ? "chevron open" : "chevron"} /></button>{mobileSol && <div className="mobile-sol">{solucoesMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobileSol(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><div><button className="mobile-trigger" aria-expanded={mobileAud} onClick={() => setMobileAud(!mobileAud)}>Para quem é <ChevronDown size={14} className={mobileAud ? "chevron open" : "chevron"} /></button>{mobileAud && <div className="mobile-sol">{paraQuemMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobileAud(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a><BrandButton>Criar evento grátis</BrandButton></div>}
       </header>
 
       <section id="top" className="hero-section">
