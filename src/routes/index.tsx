@@ -141,6 +141,7 @@ function NavDropdown({ groups }: { groups: typeof solucoesMenu }) {
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileSol, setMobileSol] = useState(false);
   const [cookies, setCookies] = useState(true);
   return (
     <main>
@@ -153,7 +154,7 @@ function Index() {
           <div className="nav-actions"><a className="login" href="#entrar">Entrar</a><BrandButton outline>Falar com especialista</BrandButton><BrandButton>Criar evento grátis</BrandButton></div>
           <button className="menu-button" aria-label="Abrir menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
         </nav>
-        {menuOpen && <div className="mobile-nav"><a href="#eventos">Participantes</a><a href="#solucoes">Soluções</a><a href="#publicos">Para quem é</a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a><BrandButton>Criar evento grátis</BrandButton></div>}
+        {menuOpen && <div className="mobile-nav"><a href="#eventos">Participantes</a><div><button className="mobile-trigger" aria-expanded={mobileSol} onClick={() => setMobileSol(!mobileSol)}>Soluções <ChevronDown size={14} className={mobileSol ? "chevron open" : "chevron"} /></button>{mobileSol && <div className="mobile-sol">{solucoesMenu.map((g) => <div key={g.group}><p>{g.group}</p>{g.items.map(([title, desc, href]) => <a key={title} href={href} onClick={() => { setMobileSol(false); setMenuOpen(false); }}><strong>{title}</strong><span>{desc}</span></a>)}</div>)}</div>}</div><a href="#publicos">Para quem é</a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a><BrandButton>Criar evento grátis</BrandButton></div>}
       </header>
 
       <section id="top" className="hero-section">
