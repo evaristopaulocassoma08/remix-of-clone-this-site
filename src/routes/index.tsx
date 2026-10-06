@@ -58,7 +58,9 @@ function BrandButton({ children, outline = false }: { children: React.ReactNode;
   return <a href="#comece" className={outline ? "btn btn-outline" : "btn btn-primary"}>{children}</a>;
 }
 
-const solucoesMenu = [
+type MenuGroup = { group: string; items: [string, string, string][] };
+
+const solucoesMenu: MenuGroup[] = [
   {
     group: "Produtos",
     items: [
@@ -94,7 +96,21 @@ const solucoesMenu = [
   },
 ];
 
-function NavDropdown({ groups }: { groups: typeof solucoesMenu }) {
+const paraQuemMenu: MenuGroup[] = [
+  {
+    group: "Segmentos",
+    items: [
+      ["Corporativos", "Congressos, treinamentos e internos", "#publicos"],
+      ["Acadêmicos", "Trabalhos, certificados e anais", "#publicos"],
+      ["Feiras e exposições", "Expositores com CAEX", "#publicos"],
+      ["Esportivos", "Categorias, pico e credenciamento", "#publicos"],
+      ["Religiosos", "Inscrição simples e certificados", "#publicos"],
+      ["Saúde", "Jornadas e congressos médicos", "#publicos"],
+    ],
+  },
+];
+
+function NavDropdown({ label, href, groups, flat = false }: { label: string; href: string; groups: MenuGroup[]; flat?: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -119,21 +135,33 @@ function NavDropdown({ groups }: { groups: typeof solucoesMenu }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <a href="#solucoes" aria-expanded={open} onClick={() => setOpen(true)}>
-        Soluções <ChevronDown size={13} className={open ? "chevron open" : "chevron"} />
+      <a href={href} aria-expanded={open} onClick={() => setOpen(true)}>
+        {label} <ChevronDown size={13} className={open ? "chevron open" : "chevron"} />
       </a>
-      <div className={`mega-menu ${open ? "open" : ""}`} aria-hidden={!open}>
-        {groups.map((g) => (
-          <div key={g.group}>
-            <p className="mega-group">{g.group}</p>
-            {g.items.map(([title, desc, href]) => (
-              <a key={title} href={href} className="mega-item" onClick={() => setOpen(false)}>
+      <div className={`mega-menu ${flat ? "mega-flat" : ""} ${open ? "open" : ""}`} aria-hidden={!open}>
+        {flat ? (
+          <>
+            <p className="mega-group">{groups[0].group}</p>
+            {groups[0].items.map(([title, desc, itemHref]) => (
+              <a key={title} href={itemHref} className="mega-item" onClick={() => setOpen(false)}>
                 <strong>{title}</strong>
                 <span>{desc}</span>
               </a>
             ))}
-          </div>
-        ))}
+          </>
+        ) : (
+          groups.map((g) => (
+            <div key={g.group}>
+              <p className="mega-group">{g.group}</p>
+              {g.items.map(([title, desc, itemHref]) => (
+                <a key={title} href={itemHref} className="mega-item" onClick={() => setOpen(false)}>
+                  <strong>{title}</strong>
+                  <span>{desc}</span>
+                </a>
+              ))}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
@@ -142,6 +170,7 @@ function NavDropdown({ groups }: { groups: typeof solucoesMenu }) {
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSol, setMobileSol] = useState(false);
+  const [mobileAud, setMobileAud] = useState(false);
   const [cookies, setCookies] = useState(true);
   return (
     <main>
