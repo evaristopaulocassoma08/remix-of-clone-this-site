@@ -139,18 +139,22 @@ function NavDropdown({ label, href, groups, flat = false }: { label: string; hre
         {label} <ChevronDown size={13} className={open ? "chevron open" : "chevron"} />
       </a>
       <div className={`mega-menu ${flat ? "mega-flat" : ""} ${open ? "open" : ""}`} aria-hidden={!open}>
-        {flat ? (
-          <>
-            <p className="mega-group">{groups[0].group}</p>
-            {groups[0].items.map(([title, desc, itemHref]) => (
-              <a key={title} href={itemHref} className="mega-item" onClick={() => setOpen(false)}>
-                <strong>{title}</strong>
-                <span>{desc}</span>
-              </a>
-            ))}
-          </>
-        ) : (
-          groups.map((g) => (
+        {(() => {
+          const [g] = groups;
+          if (flat && g) {
+            return (
+              <>
+                <p className="mega-group">{g.group}</p>
+                {g.items.map(([title, desc, itemHref]) => (
+                  <a key={title} href={itemHref} className="mega-item" onClick={() => setOpen(false)}>
+                    <strong>{title}</strong>
+                    <span>{desc}</span>
+                  </a>
+                ))}
+              </>
+            );
+          }
+          return groups.map((g) => (
             <div key={g.group}>
               <p className="mega-group">{g.group}</p>
               {g.items.map(([title, desc, itemHref]) => (
@@ -160,8 +164,8 @@ function NavDropdown({ label, href, groups, flat = false }: { label: string; hre
                 </a>
               ))}
             </div>
-          ))
-        )}
+          ));
+        })()}
       </div>
     </div>
   );
