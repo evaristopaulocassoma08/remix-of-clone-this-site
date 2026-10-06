@@ -110,6 +110,18 @@ const paraQuemMenu: MenuGroup[] = [
   },
 ];
 
+const participantesMenu: MenuGroup[] = [
+  {
+    group: "Acessos do participante",
+    items: [
+      ["Encontrar eventos", "Busque eventos e faça sua inscrição", "#eventos"],
+      ["Área do participante", "Acesse seus serviços em um só lugar", "#eventos"],
+      ["Certificados e comprovantes", "Consulte documentos pelo e-mail da inscrição", "#eventos"],
+      ["Validar certificado", "Confirme a autenticidade de um certificado", "#eventos"],
+    ],
+  },
+];
+
 function NavDropdown({ label, href, groups, flat = false }: { label: string; href: string; groups: MenuGroup[]; flat?: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -182,7 +194,7 @@ function Index() {
         <nav className="nav-shell" aria-label="Navegação principal">
           <a href="#top" aria-label="Doity"><img className="brand" src={logo.url} alt="Doity" /></a>
           <div className="desktop-nav">
-            <a href="#eventos">Participantes <ChevronDown size={13}/></a><NavDropdown label="Soluções" href="#solucoes" groups={solucoesMenu}/><NavDropdown label="Para quem é" href="#publicos" groups={paraQuemMenu} flat/><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
+            <NavDropdown label="Participantes" href="#eventos" groups={participantesMenu} flat/><NavDropdown label="Soluções" href="#solucoes" groups={solucoesMenu}/><NavDropdown label="Para quem é" href="#publicos" groups={paraQuemMenu} flat/><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
           </div>
           <div className="nav-actions"><a className="login" href="#entrar">Entrar</a><BrandButton outline>Falar com especialista</BrandButton><BrandButton>Criar evento grátis</BrandButton></div>
           <button className="menu-button" aria-label="Abrir menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
