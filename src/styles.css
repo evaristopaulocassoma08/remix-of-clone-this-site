@@ -25,6 +25,8 @@ button { font: inherit; }
 .mega-menu { position: absolute; top: calc(100% + 13px); left: -26px; width: 780px; max-width: calc(100vw - 48px); background: var(--background); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 24px 48px color-mix(in oklch,var(--dark) 14%,transparent); display: grid; grid-template-columns: 1.05fr 1.05fr .8fr; gap: 0 26px; padding: 22px 24px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .18s, transform .18s, visibility .18s; z-index: 50; }
 .mega-menu::before { content: ""; position: absolute; top: -13px; left: 0; right: 0; height: 13px; }
 .mega-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+.mega-menu.mega-flat { width: 560px; grid-template-columns: 1fr 1fr; }
+.mega-flat > .mega-group { grid-column: 1 / -1; }
 .mega-group { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); margin: 0 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .desktop-nav a.mega-item { flex-direction: column; align-items: flex-start; gap: 2px; padding: 6px 8px; border-radius: 8px; margin: 0 -8px; transition: background .15s; }
 .mega-item:hover { background: var(--soft); }
