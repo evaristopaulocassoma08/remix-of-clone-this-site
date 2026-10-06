@@ -148,7 +148,7 @@ function Index() {
         <nav className="nav-shell" aria-label="Navegação principal">
           <a href="#top" aria-label="Doity"><img className="brand" src={logo.url} alt="Doity" /></a>
           <div className="desktop-nav">
-            <a href="#eventos">Participantes <ChevronDown size={13}/></a><a href="#solucoes">Soluções <ChevronDown size={13}/></a><a href="#publicos">Para quem é <ChevronDown size={13}/></a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
+            <a href="#eventos">Participantes <ChevronDown size={13}/></a><NavDropdown groups={solucoesMenu}/><a href="#publicos">Para quem é <ChevronDown size={13}/></a><a href="#precos">Preços</a><a href="#conteudos">Conteúdos</a>
           </div>
           <div className="nav-actions"><a className="login" href="#entrar">Entrar</a><BrandButton outline>Falar com especialista</BrandButton><BrandButton>Criar evento grátis</BrandButton></div>
           <button className="menu-button" aria-label="Abrir menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
